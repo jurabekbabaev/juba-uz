@@ -488,13 +488,13 @@ var localize = {"ajaxurl":"https:\/\/juba.uz\/wp-admin\/admin-ajax.php","nonce":
     name:'Ismingiz', phone:'Telefon yoki Telegram', service:'Qaysi xizmat kerak', text:'Qisqacha vazifa (ixtiyoriy)',
     send:'Ariza yuborish', sending:'Yuborilmoqda…', ok:'Rahmat! Ariza qabul qilindi, tez orada bog‘lanamiz.',
     err:'Yuborib bo‘lmadi. Telegram orqali yozing: @juba_info', req:'Ism va telefonni kiriting.', tg:'Yoki Telegramda yozing: @juba_info',
-    services:['SMM — ijtimoiy tarmoqlarda targ‘ibot','Target reklama','Kontekst reklama (Google, Yandex)','Brending va firma uslubi','Foto va video prodakshn','Sayt yoki bot yaratish','amoCRM joriy qilish','Boshqa']
+    services:['PR va OAV bilan ishlash','SMM — ijtimoiy tarmoqlarda targ‘ibot','Target reklama','Kontekst reklama (Google, Yandex)','Brending va firma uslubi','Foto va video prodakshn','Sayt yoki bot yaratish','amoCRM joriy qilish','Boshqa']
   } : {
     fab:'Оставить заявку', title:'Обсудим ваш проект', sub:'Оставьте номер — менеджер свяжется с вами в рабочее время.',
     name:'Ваше имя', phone:'Телефон или Telegram', service:'Какая услуга нужна', text:'Коротко о задаче (необязательно)',
     send:'Отправить заявку', sending:'Отправляем…', ok:'Спасибо! Заявка принята, скоро свяжемся.',
     err:'Не удалось отправить. Напишите нам в Telegram: @juba_info', req:'Укажите имя и телефон.', tg:'Или напишите в Telegram: @juba_info',
-    services:['SMM-продвижение','Таргетированная реклама','Контекстная реклама (Google, Yandex)','Брендинг и фирменный стиль','Фото и видео продакшн','Разработка сайта или бота','Внедрение amoCRM','Другое']
+    services:['PR и работа со СМИ','SMM-продвижение','Таргетированная реклама','Контекстная реклама (Google, Yandex)','Брендинг и фирменный стиль','Фото и видео продакшн','Разработка сайта или бота','Внедрение amoCRM','Другое']
   };
   function $(id){return document.getElementById(id)}
   $('jl-fab').textContent=T.fab; $('jl-title').textContent=T.title; $('jl-subtitle').textContent=T.sub;
@@ -513,6 +513,8 @@ var localize = {"ajaxurl":"https:\/\/juba.uz\/wp-admin\/admin-ajax.php","nonce":
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
   // Кнопки «Заказать услугу» / «Buyurtma berish» открывают форму с выбранной услугой
   document.addEventListener('click',function(e){
+    var p=e.target.closest&&e.target.closest('[data-jl-service]');
+    if(p){e.preventDefault();open(p.getAttribute('data-jl-service'));return}
     var a=e.target.closest&&e.target.closest('a.elementor-button');
     if(!a) return;
     var t=(a.textContent||'').trim().toLowerCase();

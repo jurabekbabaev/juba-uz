@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11"> 
-	<title>JUBA &#8211; Marketing Services</title>
+	<title>JUBA &#8211; Marketing &amp; PR</title>
 <meta name='robots' content='max-image-preview:large' />
 <link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
 <link href='https://fonts.googleapis.com' rel='preconnect' />
@@ -275,7 +275,7 @@ class="post-6 page type-page status-publish ast-article-single" id="post-6" item
 				</div>
 				<div class="elementor-element elementor-element-67e7edf elementor-widget elementor-widget-text-editor" data-id="67e7edf" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p>Маркетинг нового поколения</p>								</div>
+									<p>Маркетинг и PR нового поколения</p>								</div>
 				</div>
 				<div class="elementor-element elementor-element-6a3b06b elementor-widget elementor-widget-video" data-id="6a3b06b" data-element_type="widget" data-settings="{&quot;show_image_overlay&quot;:&quot;yes&quot;,&quot;image_overlay&quot;:{&quot;url&quot;:&quot;https:\/\/juba.uz\/wp-content\/uploads\/2020\/09\/2020-09-16-e1600259390324.png&quot;,&quot;id&quot;:81,&quot;size&quot;:&quot;&quot;},&quot;lightbox&quot;:&quot;yes&quot;,&quot;video_type&quot;:&quot;hosted&quot;,&quot;_animation&quot;:&quot;none&quot;,&quot;mute&quot;:&quot;yes&quot;,&quot;loop&quot;:&quot;yes&quot;,&quot;lightbox_content_animation&quot;:&quot;none&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
 				<div class="elementor-widget-container">
@@ -1874,6 +1874,10 @@ class="post-6 page type-page status-publish ast-article-single" id="post-6" item
 				<div class="elementor-widget-container">
 					<div class="elementor-image-box-wrapper"><div class="elementor-image-box-content"><h4 class="elementor-image-box-title"><a href="../services.html"><i class="fas fa-border-all"></i> НАРУЖНАЯ РЕКЛАМА</a></h4></div></div>				</div>
 				</div>
+				<div class="elementor-element elementor-element-pr01 elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="pr01" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-image-box-wrapper"><div class="elementor-image-box-content"><h4 class="elementor-image-box-title"><a href="../services.html#pr"><i class="fas fa-bullhorn"></i> PR И РАБОТА СО СМИ</a></h4></div></div>				</div>
+				</div>
 					</div>
 		</div>
 				<div class="elementor-column elementor-col-66 elementor-inner-column elementor-element elementor-element-22574b9" data-id="22574b9" data-element_type="column">
@@ -2294,13 +2298,13 @@ var astraAddon = {"sticky_active":"1","svgIconClose":"<span class=\"ast-icon ico
     name:'Ismingiz', phone:'Telefon yoki Telegram', service:'Qaysi xizmat kerak', text:'Qisqacha vazifa (ixtiyoriy)',
     send:'Ariza yuborish', sending:'Yuborilmoqda…', ok:'Rahmat! Ariza qabul qilindi, tez orada bog‘lanamiz.',
     err:'Yuborib bo‘lmadi. Telegram orqali yozing: @juba_info', req:'Ism va telefonni kiriting.', tg:'Yoki Telegramda yozing: @juba_info',
-    services:['SMM — ijtimoiy tarmoqlarda targ‘ibot','Target reklama','Kontekst reklama (Google, Yandex)','Brending va firma uslubi','Foto va video prodakshn','Sayt yoki bot yaratish','amoCRM joriy qilish','Boshqa']
+    services:['PR va OAV bilan ishlash','SMM — ijtimoiy tarmoqlarda targ‘ibot','Target reklama','Kontekst reklama (Google, Yandex)','Brending va firma uslubi','Foto va video prodakshn','Sayt yoki bot yaratish','amoCRM joriy qilish','Boshqa']
   } : {
     fab:'Оставить заявку', title:'Обсудим ваш проект', sub:'Оставьте номер — менеджер свяжется с вами в рабочее время.',
     name:'Ваше имя', phone:'Телефон или Telegram', service:'Какая услуга нужна', text:'Коротко о задаче (необязательно)',
     send:'Отправить заявку', sending:'Отправляем…', ok:'Спасибо! Заявка принята, скоро свяжемся.',
     err:'Не удалось отправить. Напишите нам в Telegram: @juba_info', req:'Укажите имя и телефон.', tg:'Или напишите в Telegram: @juba_info',
-    services:['SMM-продвижение','Таргетированная реклама','Контекстная реклама (Google, Yandex)','Брендинг и фирменный стиль','Фото и видео продакшн','Разработка сайта или бота','Внедрение amoCRM','Другое']
+    services:['PR и работа со СМИ','SMM-продвижение','Таргетированная реклама','Контекстная реклама (Google, Yandex)','Брендинг и фирменный стиль','Фото и видео продакшн','Разработка сайта или бота','Внедрение amoCRM','Другое']
   };
   function $(id){return document.getElementById(id)}
   $('jl-fab').textContent=T.fab; $('jl-title').textContent=T.title; $('jl-subtitle').textContent=T.sub;
@@ -2319,6 +2323,8 @@ var astraAddon = {"sticky_active":"1","svgIconClose":"<span class=\"ast-icon ico
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
   // Кнопки «Заказать услугу» / «Buyurtma berish» открывают форму с выбранной услугой
   document.addEventListener('click',function(e){
+    var p=e.target.closest&&e.target.closest('[data-jl-service]');
+    if(p){e.preventDefault();open(p.getAttribute('data-jl-service'));return}
     var a=e.target.closest&&e.target.closest('a.elementor-button');
     if(!a) return;
     var t=(a.textContent||'').trim().toLowerCase();
