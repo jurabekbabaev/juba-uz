@@ -1,0 +1,56 @@
+name: Snapshot live site
+# Скачивает сайт https://juba.uz (старый WordPress, закрыт для посетителей) в docs/ —
+# статичная копия для GitHub Pages. Доступ к закрытому сайту — по ключу из секрета PREVIEW_KEY.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/snapshot.yml'
+      - 'postprocess.py'
+      - 'extra-assets.txt'
+permissions:
+  contents: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mirror https://juba.uz
+        env:
+          KEY: ${{ secrets.PREVIEW_KEY }}
+        run: |
+          test -n "$KEY" || { echo "PREVIEW_KEY secret is missing"; exit 1; }
+          rm -rf mirror && mkdir mirror && cd mirror
+          wget --mirror --page-requisites --adjust-extension --convert-links \
+            --no-host-directories --restrict-file-names=windows -e robots=off \
+            --header "X-Juba-Preview: $KEY" \
+            --reject-regex '(wp-json|xmlrpc|wp-login|wp-admin|/feed/|/comments/feed|oembed|\?p=|\?replytocom)' \
+            --user-agent 'Mozilla/5.0 (snapshot)' --tries=3 --timeout=30 \
+            https://juba.uz/ https://juba.uz/uz/ https://juba.uz/services/ https://juba.uz/blogs/ || echo "wget exit $?"
+      - name: Fetch assets that are loaded by JavaScript
+        env:
+          KEY: ${{ secrets.PREVIEW_KEY }}
+        run: |
+          touch extra-assets.txt
+          grep -v '^\s*$' extra-assets.txt | while read -r p; do
+            mkdir -p "mirror$(dirname "$p")"
+            wget -q --header "X-Juba-Preview: $KEY" -O "mirror$p" "https://juba.uz$p" && echo "ok $p" || { echo "MISSING $p"; rm -f "mirror$p"; }
+          done
+      - name: Clean up for GitHub Pages
+        run: |
+          python3 postprocess.py mirror juba.uz
+          (cd mirror && find . -type f | sed 's|^\./||' | sort) > file-list.txt
+          du -sh mirror; wc -l file-list.txt
+          echo "--- suspicious patterns (should be empty) ---"
+          grep -rlE "atob\(|fromCharCode|_ea_|wp_pf_|nou-sauvage|Command \+ V" mirror || echo "none"
+      - name: Publish into docs/
+        run: |
+          rm -rf docs && mv mirror docs
+          touch docs/.nojekyll
+          echo "juba.uz" > docs/CNAME
+          git config user.name "snapshot-bot"
+          git config user.email "snapshot-bot@users.noreply.github.com"
+          git add -A docs file-list.txt
+          git commit -m "Snapshot of https://juba.uz ($(date -u +%F))" || echo "no changes"
+          git push
