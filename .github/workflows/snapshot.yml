@@ -1,4 +1,5 @@
 name: Snapshot live site
+# run 2026-10-22
 # Скачивает сайт https://juba.uz (старый WordPress, закрыт для посетителей) в docs/ —
 # статичная копия для GitHub Pages. Доступ к закрытому сайту — по ключу из секрета PREVIEW_KEY.
 on:
